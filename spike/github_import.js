@@ -1,9 +1,9 @@
 var https = require("https");
 
 
-var allReposOptions = {
+var options = {
   host: 'api.github.com',
-  path: '/repositories',
+  path: '/users',
   method: 'GET',
   headers: {
     'User-Agent': 'Women-Contributing',
@@ -12,24 +12,15 @@ var allReposOptions = {
 };
 
 
-doRequest(allReposOptions, function (all_repos) {
-  var ownerOptions = {
-    host: 'api.github.com',
-    path: '/users/',
-    method: 'GET',
-    headers: {
-      'User-Agent': 'Women-Contributing',
-      'Authorization': "token 6c72e67270e7d248404891137aae79c1bf2211e0"
+doRequest(options, function (all_users) {
+  all_users.forEach(function (user) {
+    if (user.type !== 'User') {
+      return;
     }
-  };
+    options.path = '/users/'+user.login;
 
-  all_repos.forEach(function (repo) {
-    ownerOptions.path = '/users/'+repo.owner.login;
-
-    var i = 1;
-    doRequest(ownerOptions, function (user) {
-      if(i++ === 1) console.log(user);
-      console.log(user.name, user.login);
+    doRequest(options, function (user) {
+      console.log(user.name, user.login, user.location);
     });
   });
 });
