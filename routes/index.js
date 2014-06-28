@@ -1,4 +1,6 @@
+var https = require("https");
 var express = require('express');
+var User = require('../models/user');
 var router = express.Router();
 
 /* GET home page. */
