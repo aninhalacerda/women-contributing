@@ -1,4 +1,4 @@
-var GithubRequest = require ('../scripts/import_users');
+var GithubRequest = require ('../scripts/util/github_request');
 
 describe("Import Users", function() {
   it("should get given amount of users", function(done) {

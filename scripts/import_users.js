@@ -1,84 +1,12 @@
 require('../database');
-var mongoose = require('mongoose');
-var https = require("https");
 var User = require('../models/user');
+var GithubRequest = require('./util/github_request');
 
-
-var GithubRequest = {
-  optionsForGetRequest: {
-    host: 'api.github.com',
-    method: 'GET',
-    headers: {
-      'User-Agent': 'Women-Contributing',
-      'Authorization': "token 6c72e67270e7d248404891137aae79c1bf2211e0"
-    }
-  },
-
-
-  get: function (amount) {
-    var since = 0;
-    var count = 0;
-
-    return {
-      users: function (callback) {
-        var usersLogins = [];
-
-        (function getUsers(since) {
-          var path = "/users?since=" + since;
-
-          GithubRequest.doRequest(path, function (users) {
-            users.forEach(function (user) {
-              if (user.type !== 'User' || count++ >= amount) {
-                return;
-              }
-              usersLogins.push(user.login);
-              since = user.id;
-            });
-
-            count < amount ?  getUsers(since) : callback(usersLogins);
-          });
-
-        })(since);
-      }
-    }
-  },
-
-  getUser: function (login, callback) {
-    var path = '/users/' + login;
-    GithubRequest.doRequest(path, callback);
-  },
-
-  doRequest: function (path, callback) {
-    GithubRequest.optionsForGetRequest.path = path;
-
-    var req = https.request(GithubRequest.optionsForGetRequest, function(res) {
-      var data = "";
-
-      res.on('data', function (chunk) {
-        data += chunk;
-      });
-
-      res.on('end', function () {
-        data = JSON.parse(data);
-        callback(data);
-      });
+GithubRequest.get(1000).users(function (logins) {
+  logins.forEach(function (login) {
+    GithubRequest.getUser(login, function (user) {
+      var newUser = new User(user);
+      newUser.save();
     });
-
-    req.on('error', function(e) {
-      console.log('problem with request: ' + e.message);
-    });
-
-    req.end();
-  }
-};
-
-// GithubRequest.get(1000).users(function (logins) {
-//   logins.forEach(function (login) {
-//     GithubRequest.getUser(login, function (user) {
-//       var newUser = new User(user);
-//       newUser.save();   
-//     });
-//   });
-// });
-
-module.exports = GithubRequest;
+  });
+});
