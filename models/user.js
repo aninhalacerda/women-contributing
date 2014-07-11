@@ -21,14 +21,13 @@ userSchema.statics.byTime = function (callback) {
     { 
       year: { $year : "$created_at" },
       month: { $month : "$created_at" }
-      // day: { $dayOfMonth : "$created_at" }
     }, 
-    count : { $sum : 1 }})
+    count : { $sum : 1 },
+    sort: {created_at: 1}
+  })
   .exec(function (err, res) {
     if (err) return handleError(err);
-    console.log(res); 
     callback(res);
-    mongoose.connection.close()
   });
 };
 

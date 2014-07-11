@@ -1,2 +1,3 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/women-contributing');
+var env = process.env.NODE_ENV || 'development';
+mongoose.connect('mongodb://localhost/women-contributing-'+env);
