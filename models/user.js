@@ -15,4 +15,21 @@ var userSchema = mongoose.Schema({
   	created_at: Date
 });
 
+userSchema.statics.byTime = function (callback) {
+  this.aggregate()
+  .group( { _id : 
+    { 
+      year: { $year : "$created_at" },
+      month: { $month : "$created_at" }
+      // day: { $dayOfMonth : "$created_at" }
+    }, 
+    count : { $sum : 1 }})
+  .exec(function (err, res) {
+    if (err) return handleError(err);
+    console.log(res); 
+    callback(res);
+    mongoose.connection.close()
+  });
+};
+
 module.exports = mongoose.model('User', userSchema);
