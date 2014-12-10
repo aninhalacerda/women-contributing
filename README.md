@@ -19,6 +19,7 @@ Project to track information around women contributing to GitHub projects.
 
 #### Running the App:
 
+``npm install``  
 ``npm start``
 
 Access [http://localhost:3000](http://localhost:3000)
