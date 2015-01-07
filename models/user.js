@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+
 var userSchema = mongoose.Schema({
   	login: String,
   	id: Number,
@@ -7,6 +8,7 @@ var userSchema = mongoose.Schema({
   	company: String,
   	location: String,
   	email: String,
+    gender: String,
   	hireable: Boolean,
   	public_repos: Number,
   	public_gists: Number,
@@ -24,6 +26,17 @@ userSchema.statics.byTime = function (callback) {
     }, 
     count : { $sum : 1 },
     sort: {created_at: 1}
+  })
+  .exec(function (err, res) {
+    if (err) return handleError(err);
+    callback(res);
+  });
+};
+
+userSchema.statics.byGender = function (callback) {
+  this.aggregate()
+  .group( { _id : "$gender",
+            count : { $sum : 1 }
   })
   .exec(function (err, res) {
     if (err) return handleError(err);
