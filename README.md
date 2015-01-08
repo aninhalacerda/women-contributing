@@ -8,7 +8,7 @@ Project to track information around women contributing to GitHub projects.
 ==================
 
 * Install [Node](http://nodejs.org/)
-* Install [MongoDB]
+* Install [MongoDB](http://www.mongodb.org/)
 * Install [jasmine-node](https://www.npmjs.com/package/jasmine-node)
 
 ==================
