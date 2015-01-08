@@ -10,7 +10,7 @@ var GenderizeRequest = {
     name = userName.split(' ')[0].toLowerCase();
     path = '/?name=' + name;
     GenderizeRequest.doRequest(path, function (gender_json) {
-      callback(gender_json.gender);
+      callback(gender_json);
     });
   },
 
@@ -22,7 +22,6 @@ var GenderizeRequest = {
 
       res.on('data', function (chunk) {
         data += chunk;
-        lo
       });
 
       res.on('end', function () {

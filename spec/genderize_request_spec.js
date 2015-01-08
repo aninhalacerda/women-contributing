@@ -10,7 +10,7 @@ describe("Import Users", function() {
   	});
 
   	GenderizeRequest.genderize("Peter", function (gender) {
-  		expect(gender).toEqual("male");
+  		expect(gender).toEqual({"name": "peter", "gender": "male"});
   		done();
   	});
   });
