@@ -9,6 +9,7 @@ var userSchema = mongoose.Schema({
   	location: String,
   	email: String,
     gender: String,
+    gender_probability: Number,
   	hireable: Boolean,
   	public_repos: Number,
   	public_gists: Number,
@@ -24,11 +25,13 @@ userSchema.statics.byTime = function (callback) {
       year: { $year : "$created_at" },
       month: { $month : "$created_at" }
     }, 
-    count : { $sum : 1 },
-    sort: {created_at: 1}
+    count : { $sum : 1 }
   })
   .exec(function (err, res) {
-    if (err) return handleError(err);
+    if (err) {
+      console.log(err);
+      return handleError(err);
+    }
     callback(res);
   });
 };
