@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "jasmine-node spec"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
@@ -14,6 +15,7 @@
     "mongoose": "^3.8.12",
     "morgan": "~1.0.0",
     "q": "^1.0.1",
-    "static-favicon": "~1.0.0"
+    "static-favicon": "~1.0.0",
+    "jasmine-node": "latest"
   }
 }

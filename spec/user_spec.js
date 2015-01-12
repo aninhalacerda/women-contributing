@@ -1,15 +1,22 @@
 require ('../database');
 var User = require ('../models/user');
 
-beforeEach(function () {
-    new User({"created_at" : "2014-01-01"}).save();
-    new User({"created_at" : "2014-02-01"}).save();
-    new User({"created_at" : "2014-03-01"}).save();
+beforeEach(function (done) {
+    new User({"created_at" : "2014-01-01"}).save(function() {
+      new User({"created_at" : "2014-02-01"}).save(function() {
+        new User({"created_at" : "2014-03-01"}).save(function() {
+          done();
+        });
+      });
+    });
+
+
 });
 
-afterEach(function () {
+afterEach(function (done) {
   User.remove({}, function() {
-    });
+    done();
+  });
 });
 
 describe("UserTime", function() {
