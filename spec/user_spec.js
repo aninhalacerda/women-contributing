@@ -23,9 +23,11 @@ describe("UserTime", function() {
   it("should get user count grouped by time", function (done) {
     User.byTime(function (users) {
       expect(users.length).toEqual(3);
-      expect(users).toEqual([ { _id: { year: 2014, month: 1 }, count: 1 },
-                              { _id: { year: 2014, month: 2 }, count: 1 },
-                              { _id: { year: 2014, month: 3 }, count: 1 } ]);
+
+      expect(users).toContain({ _id: { year: 2014, month: 1 }, count: 1 });
+      expect(users).toContain({ _id: { year: 2014, month: 2 }, count: 1 });
+      expect(users).toContain({ _id: { year: 2014, month: 3 }, count: 1 });
+
       done();
     });
   });
