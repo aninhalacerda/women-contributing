@@ -2,9 +2,9 @@ require ('../database');
 var User = require ('../models/user');
 
 beforeEach(function (done) {
-    new User({"created_at" : "2014-01-01"}).save(function() {
-      new User({"created_at" : "2014-02-01"}).save(function() {
-        new User({"created_at" : "2014-03-01"}).save(function() {
+    new User({"created_at" : "2014-01-01", "gender" : "female"}).save(function() {
+      new User({"created_at" : "2014-02-01", "gender" : "female"}).save(function() {
+        new User({"created_at" : "2014-03-01", "gender" : "male"}).save(function() {
           done();
         });
       });
@@ -35,19 +35,26 @@ describe("UserTime", function() {
 
 describe("UserGender", function() {
   it("should get user grouped by gender", function (done) {
-    new User({"gender" : "female"}).save();
-    new User({"gender" : "male"}).save();
-    User.byGender(function (users) {
-      var captured = null;
-      try {
-        expect(users.length).toEqual(2);
-        expect(users).containsAll([ { _id:  "female", count: 1 },
-                                  { _id:  "male" , count: 1 }]);
-      } catch(e) {
-        captured = e;
-      }
-      expect(captured).toBe(null);
-      done();
+
+    new User({"gender" : "female"}).save(function() {
+      new User({"gender" : "male"}).save(function() {
+        User.byGender(function (users) {
+          var captured = null;
+          try {
+            expect(users.length).toEqual(2);
+
+            expect(users).toContain({ _id: "female", count: 3 });
+            expect(users).toContain({ _id: "male", count: 2 });
+        } catch(e) {
+          captured = e;
+        }
+        expect(captured).toBe(null);
+        done();
+      });
+
+      });
     });
+
+
   });
 });
