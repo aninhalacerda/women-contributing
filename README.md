@@ -18,7 +18,17 @@ Project to track information around women contributing to GitHub projects.
 ``mongod &``  
 ``npm test``
 
+
+#### Running Scripts to Populate Database:
+*By default import_users script will import only 1k users from Github*
+
+``mongod &``  
+``node scripts/import_users.js``  
+``node scripts/update_user_gender.js``  
+
+
 #### Running the App:
+*Since we are in the first step of the project (aquiring and parsing data) you'll see only default Express running here*
 
 ``npm install``  
 ``npm start``
