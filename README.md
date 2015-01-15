@@ -16,7 +16,7 @@ Project to track information around women contributing to GitHub projects.
 #### Running Tests:
 
 ``mongod &``  
-``jasmine-node spec``
+``npm test``
 
 #### Running the App:
 
