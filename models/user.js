@@ -28,10 +28,7 @@ userSchema.statics.byTime = function (callback) {
     count : { $sum : 1 }
   })
   .exec(function (err, res) {
-    if (err) {
-      console.log(err);
-      return handleError(err);
-    }
+    if (err) return handleError(err);
     callback(res);
   });
 };
@@ -40,6 +37,22 @@ userSchema.statics.byGender = function (callback) {
   this.aggregate()
   .group( { _id : "$gender",
             count : { $sum : 1 }
+  })
+  .exec(function (err, res) {
+    if (err) return handleError(err);
+    callback(res);
+  });
+};
+
+userSchema.statics.byTimeAndGender = function (callback) {
+  this.aggregate()
+  .group( { _id : 
+    { 
+      year: { $year : "$created_at" },
+      month: { $month : "$created_at" },
+      gender: "$gender"
+    }, 
+    count : { $sum : 1 }
   })
   .exec(function (err, res) {
     if (err) return handleError(err);
