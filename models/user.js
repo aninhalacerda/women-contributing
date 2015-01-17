@@ -19,14 +19,9 @@ var userSchema = mongoose.Schema({
 });
 
 userSchema.statics.byTime = function (callback) {
-  this.aggregate()
-  .group( { _id : 
-    { 
-      year: { $year : "$created_at" },
-      month: { $month : "$created_at" }
-    }, 
-    count : { $sum : 1 }
-  })
+  this.aggregate([ { $group : { _id : { year: { $year : "$created_at" },
+                                        month: { $month : "$created_at" }}, 
+                                count : { $sum : 1 }}} ] )
   .exec(function (err, res) {
     if (err) return handleError(err);
     callback(res);
@@ -34,10 +29,7 @@ userSchema.statics.byTime = function (callback) {
 };
 
 userSchema.statics.byGender = function (callback) {
-  this.aggregate()
-  .group( { _id : "$gender",
-            count : { $sum : 1 }
-  })
+  this.aggregate( [ { $group : {_id : "$gender", count : { $sum : 1 }}} ])
   .exec(function (err, res) {
     if (err) return handleError(err);
     callback(res);
@@ -45,15 +37,19 @@ userSchema.statics.byGender = function (callback) {
 };
 
 userSchema.statics.byTimeAndGender = function (callback) {
-  this.aggregate()
-  .group( { _id : 
-    { 
-      year: { $year : "$created_at" },
-      month: { $month : "$created_at" },
-      gender: "$gender"
-    }, 
-    count : { $sum : 1 }
-  })
+  this.aggregate([ { $group : { _id : { year: { $year : "$created_at" },
+                                        month: { $month : "$created_at" },
+                                        gender: "$gender"}, 
+                                count : { $sum : 1 }}} ] )
+  .exec(function (err, res) {
+    if (err) return handleError(err);
+    callback(res);
+  });
+};
+
+userSchema.statics.byGenderUntil = function (date, callback) {
+  this.aggregate( [ { $match : { created_at : {"$lt": date }}},
+                    { $group : {_id : "$gender", count : { $sum : 1 }}} ])
   .exec(function (err, res) {
     if (err) return handleError(err);
     callback(res);
