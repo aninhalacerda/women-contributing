@@ -3,7 +3,7 @@ var User = require ('../models/user');
 
 beforeEach(function (done) {
   new User({"created_at" : "2014-01-01", "gender" : "female"}).save( function() {
-    new User({"created_at" : "2014-02-10", "gender" : "male"}).save( function() {
+    new User({"created_at" : "2014-02-09", "gender" : "male"}).save( function() {
       new User({"created_at" : "2014-02-15", "gender" : "female"}).save( function() {
         new User({"created_at" : "2014-03-01", "gender" : "female"}).save( function() {
           done();
