@@ -1,7 +1,12 @@
-run_script=node scripts/
-
+# ------ App
 run:
 	npm start
+
+test:
+	npm test
+
+# ------ Scripts
+run_script=node scripts/
 
 clean:
 	${run_script}clean_database.js
@@ -15,7 +20,8 @@ import-1000-users:
 genderize:
 	${run_script}update_user_gender.js
 
-test:
-	npm test
+# ------ Heroku
+hlog:
+	heroku logs --app women-contributing
 
 
