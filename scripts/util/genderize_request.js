@@ -1,4 +1,4 @@
-var http = require("http");
+var https = require("https");
 
 var GenderizeRequest = {
   genderizeOptions: {
@@ -17,7 +17,7 @@ var GenderizeRequest = {
   doRequest: function (path, callback) {
     GenderizeRequest.genderizeOptions.path = path;
 
-    var req = http.request(GenderizeRequest.genderizeOptions, function (res) {
+    var req = https.request(GenderizeRequest.genderizeOptions, function (res) {
       var data = "";
 
       res.on('data', function (chunk) {
