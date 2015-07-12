@@ -6,7 +6,7 @@ var GithubRequest = {
     method: 'GET',
     headers: {
       'User-Agent': 'Women-Contributing',
-      'Authorization': "token 6c72e67270e7d248404891137aae79c1bf2211e0"
+      'Authorization': "token a9c8694892d57ff92c22faa732fed9cfd18d9b26"
     }
   },
 
