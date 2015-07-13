@@ -19,5 +19,8 @@
     "jasmine-node": "latest",
     "expect.js": "^0.3.1",
     "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "should": "^7.0.2"
   }
 }
