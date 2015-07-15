@@ -1,6 +1,6 @@
 # ------ App
 run:
-	npm start
+	npm install && npm start
 
 # ------ Tests
 run-coverage:
@@ -23,6 +23,8 @@ import-1000-users:
 
 genderize:
 	${run_script}update_user_gender.js
+
+populate-db: import-1000-users genderize 
 
 # ------ Heroku
 hlog:
