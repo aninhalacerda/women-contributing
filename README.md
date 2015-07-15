@@ -10,21 +10,24 @@ Project to track information around women contributing to GitHub projects.
 
 * Install [Node](http://nodejs.org/)
 * Install [MongoDB](http://www.mongodb.org/)
-* Install [jasmine-node](https://www.npmjs.com/package/jasmine-node)
+ 
+##### Set up:
+
+``$ git clone https://github.com/aninhalacerda/women-contributing.git``  
+``$ cd women-contributing``  
+``$ npm install``  
+``$ mongod&``  
 
 ==================
 
 #### Running Tests:
 
-``mongod &``  
 ``make run-tests``  
 ``make run-coverage`` for running tests with coverage
 
-
 #### Running Scripts to Populate Database:
 *By default import_users script will import only 1k users from Github*
-
-``mongod &``  
+  
 ``make populate-db``  
 
 #### Running the App:
