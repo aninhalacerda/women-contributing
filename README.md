@@ -17,7 +17,7 @@ Project to track information around women contributing to GitHub projects.
 #### Running Tests:
 
 ``mongod &``  
-``make run-tests``
+``make run-tests``  
 ``make run-coverage`` for running tests with coverage
 
 
