@@ -22,4 +22,12 @@ describe("Import Users", function() {
       done();
     });
   });
+
+  it("should get real users - not stub", function(done) {
+    GithubRequest.doRequest.restore()
+    GithubRequest.get(5).users(function (logins) {
+      logins.length.should.equal(5);
+      done();
+    });
+  });
 });

@@ -4,10 +4,10 @@ run:
 
 # ------ Tests
 run-coverage:
-	istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+	istanbul cover ./node_modules/mocha/bin/_mocha test/api.js test/users.js test/genderize_request.js  test/github_request.js -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 run-tests:
-	mocha
+	npm test
 
 # ------ Scripts
 run_script=node scripts/

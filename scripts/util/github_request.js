@@ -1,4 +1,5 @@
 var https = require("https");
+var token = process.env.GITHUB_TOKEN || 'notmytoken';
 
 var GithubRequest = {
   optionsForGetRequest: {
@@ -6,7 +7,7 @@ var GithubRequest = {
     method: 'GET',
     headers: {
       'User-Agent': 'Women-Contributing',
-      'Authorization': "notmyrealtoken"
+      'Authorization': "token " + token
     }
   },
 
