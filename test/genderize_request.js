@@ -4,10 +4,6 @@ var chai = require("chai");
 chai.should();
 chai.use(require('chai-things'));
 
-before(function(){
-  sinon.stub(GenderizeRequest, 'doRequest').yields({"name":"peter","gender":"male"});
-});
-
 describe("Genderize Users", function() {
   it("should find gender for specific user", function(done) {
     GenderizeRequest.genderize("Peter", function (gender) {
