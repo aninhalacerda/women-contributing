@@ -1,5 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/aninhalacerda/women-contributing.png?label=ready&title=Ready)](https://waffle.io/aninhalacerda/women-contributing)
 [![Build Status](https://snap-ci.com/aninhalacerda/women-contributing/branch/master/build_image)](https://snap-ci.com/aninhalacerda/women-contributing/branch/master)
+[![Coverage Status](https://coveralls.io/repos/aninhalacerda/women-contributing/badge.svg?branch=master&service=github)](https://coveralls.io/github/aninhalacerda/women-contributing?branch=master)
 
 Women Open Source Space
 ==================
