@@ -30,4 +30,12 @@ describe("Import Users", function() {
       done();
     });
   });
+
+  it("should get info about a specific real user - not stub", function(done) {
+    GithubRequest.getUser('aninhalacerda', function (userInfo) {
+      userInfo.should.have.property('name');
+      done();
+    });
+  });
+
 });
