@@ -23,7 +23,10 @@
     "mocha": "^2.2.5",
     "istanbul": "^0.3.17",
     "mocha-lcov-reporter": "0.0.2",
-    "coveralls": "^2.11.2"
+    "coveralls": "^2.11.2",
+    "chai-things": "^0.2.0",
+    "chai": "^3.0.0",
+    "sinon": "^1.15.4"
   },
   "devDependencies": {
     "should": "^7.0.2"

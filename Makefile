@@ -6,8 +6,8 @@ run:
 run-coverage:
 	istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
-test:
-	npm test
+run-tests:
+	mocha
 
 # ------ Scripts
 run_script=node scripts/

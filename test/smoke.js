@@ -1,9 +1,12 @@
 var request = require('superagent');
 var expect = require('expect.js');
-var should = require('should');
 var app = require('../app');
 var server;
 var URL = 'https://women-contributing.herokuapp.com/';
+
+var chai = require("chai");
+chai.should();
+chai.use(require('chai-things'));
   
 describe('Production API', function(){
 	it ('should be alive', function(done){
