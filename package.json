@@ -22,7 +22,8 @@
     "should": "^7.0.2",
     "mocha": "^2.2.5",
     "istanbul": "^0.3.17",
-    "mocha-lcov-reporter": "0.0.2"
+    "mocha-lcov-reporter": "0.0.2",
+    "coveralls": "^2.11.2"
   },
   "devDependencies": {
     "should": "^7.0.2"
