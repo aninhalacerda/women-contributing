@@ -4,30 +4,33 @@ var User = require ('../models/user');
 var GenderizeRequest = require('./util/genderize_request');
 var Q = require('q');
 
-function genderize() {
-  var stream = User.find({"gender": null}).limit(5).stream();
-  var promises = [];
-  var users = ["nate", "canadaduane", "nicksieger"];
+function genderize(numUsers) {
+  var streamDeferred = Q.defer();
+  var promises = [streamDeferred.promise];
+  var usersUpdated = 0;
+  var stream = User.find({"gender": null}).limit(numUsers).stream();
 
-  users.forEach(function(user) {
-        var deferred = Q.defer();
-
-        GenderizeRequest.genderize("Luke bla", function(gender) {
-          updateUserGender(user, gender, function(err, numAffected) {
-                  if (err != null) {
-                    console.log("Could not update user gender");
-                    console.log(err);
-                  } else {
-                    console.log("Deferred!");
-                    deferred.resolve(numAffected);
-                  }
-                });
-          process.stdout.write(". " + user + ". ");
-       });
-       promises.push(deferred.promise);
+  stream.on('data', function (user) {
+    if (user.name != undefined) {
+      var deferred = Q.defer();
+      GenderizeRequest.genderize(user.name, function(gender) {
+        updateUserGender(user.login, gender, function(err, numAffected) {
+          if (err != null) {
+            console.log("Could not update user gender");
+            console.log(err);
+          } else {
+            deferred.resolve(numAffected);
+            if (++usersUpdated == numUsers) {streamDeferred.resolve()};
+          }
+        });
+      });
+      promises.push(deferred.promise);
+    } else {
+      usersUpdated++;
+    }
   });
 
-  Q.all(promises).then(function() { console.log("finished!"); mongoose.connection.close() });
+  Q.all(promises).then(function() { mongoose.connection.close(); });
 };
 
 function updateUserGender(login, gender, callback) {
@@ -41,4 +44,4 @@ function updateUserGender(login, gender, callback) {
               callback);
 }
 
-genderize();
+genderize(5);
