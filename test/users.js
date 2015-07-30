@@ -11,7 +11,9 @@ before(function(done){
     new User({"created_at" : "2014-02-09", "gender" : "male"}).save( function() {
       new User({"created_at" : "2014-02-15", "gender" : "female"}).save( function() {
         new User({"created_at" : "2014-03-01", "gender" : "female"}).save( function() {
-          done();
+          new User({"created_at" : "2015-03-01", "gender" : null}).save( function() {
+            done();
+          });
         });
       });
     });
@@ -21,30 +23,33 @@ before(function(done){
 describe('User Filter', function(){
   it ("should get user count grouped by time", function(done){
     User.byTime(function (users) {
-      users.length.should.equal(3);
+      users.length.should.equal(4);
       users.should.include.something.that.deep.equals({ _id: { year: 2014, month: 1 }, count: 1 });
       users.should.include.something.that.deep.equals({ _id: { year: 2014, month: 2 }, count: 2 });
       users.should.include.something.that.deep.equals({ _id: { year: 2014, month: 3 }, count: 1 });
+      users.should.include.something.that.deep.equals({ _id: { year: 2015, month: 3 }, count: 1 });
       done();
     });
   });
 
   it("should get user grouped by gender", function (done) {
     User.byGender(function (users) {
-      users.length.should.equal(2);
+      users.length.should.equal(3);
       users.should.include.something.that.deep.equals({ _id: "female", count: 3 });
       users.should.include.something.that.deep.equals({ _id: "male", count: 1 });
+      users.should.include.something.that.deep.equals({ _id: "unknow", count: 1 });
       done();
     });
   });
 
   it("should get user grouped by time and gender", function (done) {
     User.byTimeAndGender(function (users) {
-      users.length.should.equal(4);
+      users.length.should.equal(5);
       users.should.include.something.that.deep.equals({ _id: { year: 2014, month: 1 , gender:"female"}, count: 1 });
       users.should.include.something.that.deep.equals({ _id: { year: 2014, month: 2 , gender:"male"}, count: 1 });
       users.should.include.something.that.deep.equals({ _id: { year: 2014, month: 2 , gender:"female"}, count: 1 });
       users.should.include.something.that.deep.equals({ _id: { year: 2014, month: 3 , gender:"female"}, count: 1 });
+      users.should.include.something.that.deep.equals({ _id: { year: 2015, month: 3 , gender:"unknow"}, count: 1 });
       done();
     });
   });
