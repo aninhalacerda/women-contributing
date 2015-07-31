@@ -11,8 +11,7 @@ var GithubRequest = {
     }
   },
 
-  get: function (amount) {
-    var since = 0;
+  get: function (amount, index) {
     var count = 0;
 
     return {
@@ -34,7 +33,7 @@ var GithubRequest = {
             count < amount ?  getUsers(since) : callback(usersLogins);
           });
 
-        })(since);
+        })(index);
       }
     }
   },
