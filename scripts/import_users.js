@@ -10,7 +10,7 @@ User.find().sort({ id : -1 }).select({"_id": 0}).limit(2).exec(function(err, usr
     maxUserIndex = usr[0].toObject().id;
   }
 
-  GithubRequest.get(10, maxUserIndex).users(function (logins) {
+  GithubRequest.get(30, maxUserIndex).users(function (logins) {
     var promises = [];
 
     process.stdout.write("Saving users ");

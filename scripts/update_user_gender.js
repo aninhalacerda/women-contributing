@@ -45,4 +45,4 @@ function updateUserGender(login, gender, callback) {
   }
 }
 
-genderize(100);
+genderize(10);
