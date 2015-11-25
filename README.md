@@ -26,10 +26,19 @@ Project to track information around women contributing to GitHub projects.
 ``make run-tests``  
 ``make run-coverage`` for running tests with coverage
 
-#### Running Scripts to Populate Database:
+#### Running Scripts on Database:
+## PopulatingDB:
 *By default import_users script will import only 1k users from Github*
   
-``make populate-db``  
+``make populate-db``
+
+## Adding gender data:
+
+``make genderize``
+
+## Cleaning database (if needed):
+
+``make clean``
 
 #### Running the App:
 
